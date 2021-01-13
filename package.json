@@ -6,21 +6,21 @@
   "scripts": {
     "build": "tsc",
     "watch": "tsc --watch",
-    "start": "node dist/index.js --name ltf"
+    "test": "node dist/index.js --entry ltf.json",
+    "start": "node dist/index.js --host 2 --port 22 --username ltf --password 2 --localPath ./src/lib/ --remotePath /home/ltf/ --subdir liang/teng/feng"
   },
   "lib": {
     "ltf": "dist/index.js"
   },
   "dependencies": {
     "archiver": "^5.2.0",
-    "ssh2": "^0.8.9",
-    "yargs": "^16.2.0"
+    "commander": "^6.2.1",
+    "ssh2": "^0.8.9"
   },
   "devDependencies": {
     "@types/archiver": "^5.1.0",
     "@types/node": "^14.14.20",
     "@types/ssh2": "^0.5.46",
-    "@types/yargs": "^15.0.12",
     "@typescript-eslint/eslint-plugin": "^4.13.0",
     "@typescript-eslint/parser": "^4.13.0",
     "eslint": "^7.17.0",

@@ -1,16 +1,16 @@
 
 import config from './lib/initConfig'
-// import compress from './lib/compress'
+import compress from './lib/compress'
 // import upload from './lib/upload'
-// import Config from './interface/config'
-console.log(config)
-// const start = async function (config:Config) {
-//   try {
-//     await compress(config)
-//     await upload(config)
-//   } catch (err) {
-//     console.log(err)
-//   }
-// }
+import Config from './interface/config'
 
-// start(config)
+const start = async function (config:Config) {
+  try {
+    await compress(config)
+    // await upload(config)
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+start(config)
