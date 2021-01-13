@@ -1,4 +1,4 @@
-export interface baseConfig {
+export interface BaseConfig {
     host: string,
     port: number,
     username: string,
@@ -9,7 +9,7 @@ export interface baseConfig {
     entry?: string
  }
 
- interface Config extends baseConfig{
+ interface Config extends BaseConfig{
     realRemotePath: string,
     realLocalPath: string,
     tmpPath:string,

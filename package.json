@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "watch": "tsc --watch",
-    "test": "node dist/index.js --entry ltf.json",
+    "test": "node dist/index.js",
     "start": "node dist/index.js --host 2 --port 22 --username ltf --password 2 --localPath ./src/lib/ --remotePath /home/ltf/ --subdir liang/teng/feng"
   },
   "lib": {
