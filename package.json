@@ -1,5 +1,5 @@
 {
-  "name": "upload",
+  "name": "happy-deploy",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
@@ -9,12 +9,13 @@
     "test": "node dist/index.js",
     "start": "node dist/index.js --host 2 --port 22 --username ltf --password 2 --localPath ./src/lib/ --remotePath /home/ltf/ --subdir liang/teng/feng"
   },
-  "lib": {
-    "ltf": "dist/index.js"
+  "bin": {
+    "hd": "./lib/index.js"
   },
   "dependencies": {
     "archiver": "^5.2.0",
     "commander": "^6.2.1",
+    "inquirer": "^7.3.3",
     "ssh2": "^0.8.9"
   },
   "devDependencies": {

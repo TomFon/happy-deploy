@@ -9,7 +9,7 @@ export interface BaseConfig {
     entry?: string
  }
 
- interface Config extends BaseConfig{
+ interface HappyDeployConfig extends BaseConfig{
     realRemotePath: string,
     realLocalPath: string,
     tmpPath:string,
@@ -22,4 +22,4 @@ export interface BaseConfig {
     extname?: string
 }
 
-export default Config
+export default HappyDeployConfig
