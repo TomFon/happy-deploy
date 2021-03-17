@@ -5,7 +5,7 @@ import { existsSync } from 'fs'
 import { core } from './cli-flag'
 import { BaseConfig } from '../interface/config'
 
-export default function (opts: BaseConfig):BaseConfig {
+export default function (opts: BaseConfig): BaseConfig {
   // clean opts undefine value
   for (const key in opts) {
     if (opts[key] === undefined) {
@@ -15,16 +15,16 @@ export default function (opts: BaseConfig):BaseConfig {
 
   // get args from entry json file
   if (opts.entry) {
-    const entryPath:string = path.join(process.cwd(), opts.entry)
+    const entryPath: string = path.join(process.cwd(), opts.entry)
     if (isJsonFile(entryPath) && existsSync(entryPath)) {
       opts = { ...require(entryPath), ...opts }
     }
   }
   // vertry opts
   core.forEach((item: CoreOption) => {
-    const key:string = item.name
-    const required:boolean | undefined = item.required
-    const rules:RegExp | undefined = item.rules
+    const key: string = item.name
+    const required: boolean | undefined = item.required
+    const rules: RegExp | undefined = item.rules
     const val = opts[key]
     if (required && (val === '' || val === undefined || val === null)) {
       throw new Error(`${key} is required and the type required ${typeof item.type()}`)
