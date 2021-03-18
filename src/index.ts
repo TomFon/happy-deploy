@@ -29,4 +29,3 @@ yargs
     }
   )
   .help().argv
-
