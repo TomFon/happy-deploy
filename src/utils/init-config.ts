@@ -1,29 +1,23 @@
-import { join, posix, basename, extname } from 'path'
-import { existsSync, lstatSync } from 'fs'
+import { join, posix, dirname } from 'path'
+import { existsSync, mkdirSync } from 'fs'
 import HappyDeployConfig, { BaseConfig } from '../interface/config'
-
 export default function (option:BaseConfig):HappyDeployConfig {
+  const tmpFileName = 'release-package.zip'
   const config:HappyDeployConfig = {
     ...option,
-    isFile: false,
-    isDirectory: false,
-    basename: '',
-    realRemotePath: '',
-    realLocalPath: '',
-    tmpPath: join(__dirname, '../../tmp/release-package.zip')
+    zipPath: '',
+    absLocalPath: '',
+    tmpPath: join(__dirname, '../../tmp/' + tmpFileName)
+  }
+  // mkdir tmp directory
+  if (!existsSync(config.tmpPath)) {
+    mkdirSync(dirname(config.tmpPath))
   }
   // absolute path
-  config.realLocalPath = join(process.cwd(), config.localPath)
+  config.absLocalPath = join(process.cwd(), config.localPath)
+  config.zipPath = posix.join(config.remotePath, tmpFileName)
 
-  config.realRemotePath = posix.join(config.remotePath, 'release-package.zip')
-
-  if (existsSync(config.realLocalPath)) {
-    const stat = lstatSync(config.realLocalPath)
-    config.isFile = stat.isFile()
-    config.isDirectory = stat.isDirectory()
-    config.basename = basename(config.realLocalPath)
-    config.extname = extname(config.realLocalPath)
-  } else {
+  if (!existsSync(config.absLocalPath)) {
     throw new Error('localPath does not exist')
   }
   return config

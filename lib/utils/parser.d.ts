@@ -1,2 +1,1 @@
-import { BaseConfig } from '../interface/config';
-export default function (): BaseConfig;
+export default function (): void;

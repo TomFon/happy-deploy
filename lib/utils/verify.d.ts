@@ -1,2 +1,2 @@
 import { BaseConfig } from '../interface/config';
-export default function (opts: BaseConfig): BaseConfig;
+export default function (filename: string): BaseConfig | undefined;

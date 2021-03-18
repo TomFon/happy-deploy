@@ -23,12 +23,7 @@ export default function (config:Config):Promise<void> {
       reject(err)
     })
     archive.pipe(output)
-    // if (config.isDirectory) {
-    //   archive.directory(config.realLocalPath, config.inCludeDirectory ? config.basename : false)
-    // } else {
-    //   archive.append(fs.createReadStream(config.realLocalPath), { name: config.basename })
-    // }
-    archive.directory(config.realLocalPath, config.subdir ? config.subdir : false)
+    archive.directory(config.absLocalPath, config.subdir ? config.subdir : false)
     archive.finalize()
   })
 }

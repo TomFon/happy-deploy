@@ -1,8 +1,0 @@
-{
-    "port": 22,
-    "host": "",
-    "localPath": "./src/lib/",
-    "remotePath": "/home/ltf/",
-    "username": "ltf",
-    "password": ""
-}
