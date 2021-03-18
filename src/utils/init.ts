@@ -28,7 +28,7 @@ export default async function ():Promise<void> {
         name: 'password',
         message: 'input your login password'
       }])
-    const basename = 'hd'
+    const basename = 'qd'
     let filename = basename + '.json'
     let i = 1
     while (existsSync(filename)) {

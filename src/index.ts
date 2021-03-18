@@ -12,7 +12,7 @@ yargs
       return yargs.option('config', {
         alias: 'c',
         describe: 'upload file config',
-        default: 'hd.json'
+        default: 'qd.json'
       })
     },
     function (argv) {
