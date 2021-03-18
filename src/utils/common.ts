@@ -1,6 +1,5 @@
 import { commands } from './cli-flag'
 import path from 'path'
-
 export const packageExists = (packageName: string): boolean => {
   try {
     require(packageName)

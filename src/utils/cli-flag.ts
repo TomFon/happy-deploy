@@ -6,15 +6,15 @@ export const commands:CommandOption [] = [
     type: String,
     usage: 'init',
     description: 'Initialize a new configuration'
+  },
+  {
+    name: 'run',
+    type: String,
+    usage: 'run',
+    description: 'start upload file'
   }
 ]
 export const core:CoreOption[] = [
-  {
-    name: 'entry',
-    type: String,
-    defaultValue: 'happy-deploy.json',
-    description: 'the config file of your application'
-  },
   {
     name: 'host',
     type: String,
