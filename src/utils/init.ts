@@ -4,7 +4,7 @@ import { writeFileSync, existsSync } from 'fs'
 
 export default async function ():Promise<void> {
   try {
-    const res = await inquirer.prompt([
+    let res = await inquirer.prompt([
       {
         name: 'port',
         message: 'input your server port',
@@ -27,7 +27,9 @@ export default async function ():Promise<void> {
       }, {
         name: 'password',
         message: 'input your login password'
-      }])
+      }
+    ])
+    res = { ...res, subdir: '', beforeUploadCommand: '', afterUploadCommand: '' }
     const basename = 'qd'
     let filename = basename + '.json'
     let i = 1

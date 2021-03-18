@@ -9,6 +9,7 @@ export default async function (configName: string):Promise<void> {
       const wholeConfig = initConfig(baseConfig)
       await compress(wholeConfig)
       await upload(wholeConfig)
+      console.log('success upload file')
     }
   } catch (err) {
     console.log(err)
