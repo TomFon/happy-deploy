@@ -5,6 +5,7 @@ import fs, { existsSync } from 'fs'
 import { BaseConfig } from '../interface/config'
 import { core } from './cli-flag'
 
+
 export default function (filename:string): BaseConfig|undefined {
   // get args from entry json file
   const entryPath: string = path.join(process.cwd(), filename)
