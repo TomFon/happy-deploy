@@ -6,18 +6,12 @@ export interface BaseConfig {
     localPath: string;
     remotePath: string;
     subdir?: string;
-    entry?: string;
-}
-interface HappyDeployConfig extends BaseConfig {
-    realRemotePath: string;
-    realLocalPath: string;
-    tmpPath: string;
-    isFile: boolean;
-    isDirectory: boolean;
-    basename: string;
-    subdir?: string;
     afterUploadCommand?: string[];
     beforeUploadCommand?: string[];
-    extname?: string;
+}
+interface HappyDeployConfig extends BaseConfig {
+    zipPath: string;
+    absLocalPath: string;
+    tmpPath: string;
 }
 export default HappyDeployConfig;

@@ -2,9 +2,14 @@ import { Client } from 'ssh2'
 import Config from '../interface/config'
 const conn:Client = new Client()
 
-const exec = function (conn:Client, commandList: string []) {
+const exec = function (conn:Client, commandList: string [] | string) {
   return new Promise<void>((resolve, reject) => {
-    const command = commandList.join(' && ')
+    let command = ''
+    if (typeof commandList === 'string') {
+      command = commandList
+    } else if (Array.isArray(commandList)) {
+      command = commandList.join(' && ')
+    }
     conn.exec(command, (err, stream) => {
       if (err) {
         reject(err)
@@ -17,7 +22,7 @@ const exec = function (conn:Client, commandList: string []) {
             console.log('STDOUT:\n' + data)
           })
           .stderr.on('data', (data) => {
-            reject(data)
+            reject(data.toString())
           })
       }
     })
@@ -49,8 +54,9 @@ export default function (config: Config):Promise<void> {
         if (Array.isArray(config.beforeUploadCommand)) {
           await exec(conn, config.beforeUploadCommand)
         }
-        await sftp(conn, config.tmpPath, config.realRemotePath)
-        await exec(conn, [`unzip -o ${config.realRemotePath} -d ${config.remotePath}`, `rm ${config.realRemotePath}`
+        await exec(conn, `if [ ! -e ${config.remotePath}  ];then  mkdir ${config.remotePath} && echo mkdir ${config.remotePath}; fi`)
+        await sftp(conn, config.tmpPath, config.zipPath)
+        await exec(conn, [`unzip -o ${config.zipPath} -d ${config.remotePath}`, `rm ${config.zipPath}`
         ])
         if (Array.isArray(config.afterUploadCommand)) {
           await exec(conn, config.afterUploadCommand)

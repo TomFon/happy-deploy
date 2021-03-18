@@ -1,37 +1,37 @@
 import { CoreOption } from '../interface/options'
 import { isJsonFile } from './common'
 import path from 'path'
-import { existsSync } from 'fs'
-import { core } from './cli-flag'
+import fs, { existsSync } from 'fs'
 import { BaseConfig } from '../interface/config'
+import { core } from './cli-flag'
 
-export default function (opts: BaseConfig): BaseConfig {
-  // clean opts undefine value
-  for (const key in opts) {
-    if (opts[key] === undefined) {
-      delete opts[key]
-    }
-  }
-
+export default function (config:string): BaseConfig|undefined {
   // get args from entry json file
-  if (opts.entry) {
-    const entryPath: string = path.join(process.cwd(), opts.entry)
-    if (isJsonFile(entryPath) && existsSync(entryPath)) {
-      opts = { ...require(entryPath), ...opts }
-    }
+  const entryPath: string = path.join(process.cwd(), config)
+  if (!isJsonFile(entryPath)) {
+    throw new Error('the config is not json file')
   }
-  // vertry opts
-  core.forEach((item: CoreOption) => {
-    const key: string = item.name
-    const required: boolean | undefined = item.required
-    const rules: RegExp | undefined = item.rules
-    const val = opts[key]
-    if (required && (val === '' || val === undefined || val === null)) {
-      throw new Error(`${key} is required and the type required ${typeof item.type()}`)
-    }
-    if (rules && !rules.test(val as string)) {
-      throw new Error(`the ${key} RegExp is ${rules}`)
-    }
-  })
-  return opts
+  if (!existsSync(entryPath)) {
+    throw new Error('the config path is not exist')
+  }
+  try {
+    const jsonData:string = fs.readFileSync(entryPath, 'utf-8')
+    const configData:BaseConfig = JSON.parse(jsonData)
+    // verity opts
+    core.forEach((item: CoreOption) => {
+      const key: string = item.name
+      const required: boolean | undefined = item.required
+      const rules: RegExp | undefined = item.rules
+      const val = configData[key]
+      if (required && (val === '' || val === undefined || val === null)) {
+        throw new Error(`${key} is required and the type required ${typeof item.type()}`)
+      }
+      if (rules && !rules.test(val as string)) {
+        throw new Error(`the ${key} RegExp is ${rules}`)
+      }
+    })
+    return configData
+  } catch (err) {
+    console.log(err)
+  }
 }
